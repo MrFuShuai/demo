@@ -17,7 +17,7 @@
 
     </RelativeLayout>
 
-    <xyz.tangram.demo.view.RefreshListView
+    <xyz.tangram.demo.view.SimpleListView
         android:id="@+id/content_rlv"
         style="@style/refresh_list_style"
         android:layout_width="match_parent"

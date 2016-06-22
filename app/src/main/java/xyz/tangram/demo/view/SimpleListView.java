@@ -21,7 +21,7 @@ import xyz.tangram.demo.R;
  *
  * @version V1.0
  */
-public class RefreshListView extends SwipeRefreshLayout {
+public class SimpleListView extends SwipeRefreshLayout {
     private ListView mListView;
     private LoadMoreStatus mLoadMoreStatus = LoadMoreStatus.CLICK_TO_LOAD;
     private OnLoadListener mOnLoadListener;
@@ -60,12 +60,12 @@ public class RefreshListView extends SwipeRefreshLayout {
         public void onLoad(boolean isRefresh);
     }
 
-    public RefreshListView(Context context) {
+    public SimpleListView(Context context) {
         super(context);
         init(context, null);
     }
 
-    public RefreshListView(Context context, AttributeSet attrs) {
+    public SimpleListView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context, attrs);
     }
@@ -113,7 +113,7 @@ public class RefreshListView extends SwipeRefreshLayout {
                         mOnLoadListener.onLoad(true);
                     }
                 } else {
-                    RefreshListView.super.setRefreshing(false);
+                    SimpleListView.super.setRefreshing(false);
                 }
             }
         });

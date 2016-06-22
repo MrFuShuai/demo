@@ -12,7 +12,7 @@ import java.util.List;
 
 public abstract class BaseAdapter<T> extends android.widget.BaseAdapter {
     protected Context mContext;
-    protected List<T> mData = new LinkedList<T>();
+    protected List<T> mData = new LinkedList<>();
     protected LayoutInflater mInflater;
 
     public BaseAdapter(Activity context) {
@@ -50,11 +50,11 @@ public abstract class BaseAdapter<T> extends android.widget.BaseAdapter {
     final public View getView(int position, View convertView, ViewGroup parent) {
         int itemViewType = getItemViewType(position);
         T item = getItem(position);
-        ViewHolder holder = null;
+        ViewHolder holder;
         boolean reused = false;
         if (convertView == null) {
-            int itemLayout = getItemLayout(itemViewType);
-            convertView = mInflater.inflate(itemLayout, null);
+            int itemLayoutId = getItemLayoutId(itemViewType);
+            convertView = mInflater.inflate(itemLayoutId, null);
             holder = new ViewHolder(convertView);
             convertView.setTag(holder);
         } else {
@@ -70,7 +70,7 @@ public abstract class BaseAdapter<T> extends android.widget.BaseAdapter {
      * @param itemViewType 视图类型
      * @return
      */
-    protected abstract int getItemLayout(int itemViewType);
+    protected abstract int getItemLayoutId(int itemViewType);
 
     /**
      * 处理item，主要是填充数据
@@ -82,21 +82,21 @@ public abstract class BaseAdapter<T> extends android.widget.BaseAdapter {
     protected abstract void handleItem(int itemViewType, int position, T item, ViewHolder holder, boolean reused);
 
     protected static class ViewHolder {
-        private View mConvertView;
+        private View mItemLayout;
         SparseArray<View> mViews = new SparseArray<View>();
 
-        public ViewHolder(View convertView) {
-            mConvertView = convertView;
+        public ViewHolder(View itemLayout) {
+            mItemLayout = itemLayout;
         }
 
-        public View getConvertView() {
-            return mConvertView;
+        public View gettemLayout() {
+            return mItemLayout;
         }
 
         public <T extends View> T get(int viewId) {
             View childView = mViews.get(viewId);
             if (childView == null) {
-                childView = mConvertView.findViewById(viewId);
+                childView = mItemLayout.findViewById(viewId);
                 mViews.put(viewId, childView);
             }
             return (T) childView;
@@ -105,7 +105,7 @@ public abstract class BaseAdapter<T> extends android.widget.BaseAdapter {
         public <T extends View> T get(int viewId, Class<T> viewClass) {
             View childView = mViews.get(viewId);
             if (childView == null) {
-                childView = mConvertView.findViewById(viewId);
+                childView = mItemLayout.findViewById(viewId);
                 mViews.put(viewId, childView);
             }
             return (T) childView;

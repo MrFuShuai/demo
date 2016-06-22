@@ -10,13 +10,13 @@ import java.util.LinkedList;
 import java.util.List;
 
 import xyz.tangram.demo.base.BaseAdapter;
-import xyz.tangram.demo.view.RefreshListView;
+import xyz.tangram.demo.view.SimpleListView;
 
 /**
  * Created by linyongsheng on 16/6/9.
  */
-public class RefreshActivity extends Activity implements RefreshListView.OnLoadListener {
-    private RefreshListView mContentRlv;
+public class RefreshActivity extends Activity implements SimpleListView.OnLoadListener {
+    private SimpleListView mContentRlv;
     private View mEmptyView;
     private RefreshListAdapter mAdapter;
     private int mPage = 1;
@@ -26,7 +26,7 @@ public class RefreshActivity extends Activity implements RefreshListView.OnLoadL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.refresh_activity);
-        mContentRlv = (RefreshListView) findViewById(R.id.content_rlv);
+        mContentRlv = (SimpleListView) findViewById(R.id.content_rlv);
         mEmptyView = findViewById(R.id.empty_rl);
         mContentRlv.setEmptyView(mEmptyView);
         mAdapter = new RefreshListAdapter(this);
@@ -77,7 +77,7 @@ public class RefreshActivity extends Activity implements RefreshListView.OnLoadL
         }
 
         @Override
-        protected int getItemLayout(int itemViewType) {
+        protected int getItemLayoutId(int itemViewType) {
             return R.layout.refresh_list_item;
         }
 
