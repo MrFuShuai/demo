@@ -3,6 +3,7 @@ package xyz.tangram.demo;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,7 +16,7 @@ import xyz.tangram.demo.view.SimpleListView;
 /**
  * Created by linyongsheng on 16/6/9.
  */
-public class RefreshActivity extends Activity implements SimpleListView.OnLoadListener {
+public class RefreshActivity extends Activity implements SimpleListView.OnLoadListener, AdapterView.OnItemClickListener {
     private SimpleListView mContentRlv;
     private View mEmptyView;
     private RefreshListAdapter mAdapter;
@@ -32,7 +33,7 @@ public class RefreshActivity extends Activity implements SimpleListView.OnLoadLi
         mAdapter = new RefreshListAdapter(this);
         mContentRlv.setAdapter(mAdapter);
         mContentRlv.setOnLoadListener(this);
-
+        mContentRlv.setOnItemClickListener(this);
     }
 
     private void getData(final int page) {
@@ -87,4 +88,8 @@ public class RefreshActivity extends Activity implements SimpleListView.OnLoadLi
         }
     }
 
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Toast.makeText(this, "点击了" + position + " ", Toast.LENGTH_SHORT).show();
+    }
 }
